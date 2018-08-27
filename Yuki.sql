@@ -1,4 +1,4 @@
-create database if not exists NIIT;
+﻿create database if not exists NIIT;
 
 use NIIT;
 
@@ -96,7 +96,7 @@ as
 if exists (select top 1 * from mark s inner join deleted d on s.stu_Id = d.rollno)
 begin
 rollback 
-print ‘你必须先删除该学生的成绩才能删除该学生’
+print '你必须先删除该学生的成绩才能删除该学生'
 end
 //
 
