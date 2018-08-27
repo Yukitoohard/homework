@@ -1,4 +1,4 @@
-﻿create database if not exists NIIT;
+create database if not exists NIIT;
 
 use NIIT;
 
@@ -49,13 +49,11 @@ insert into mark values
 (null,3,1,92),
 (null,3,2,97),
 (null,4,1,100),
-(null,4,3,100),(null,5,2,90),
+(null,4,3,100),
+(null,5,2,90),
 (null,5,3,98);
 select * from mark group by course_id;
 truncate table mark;
-
-
-
 
 select m.stu_id, s.stu_name, m.score from stu s, mark m where s.rollno = m.stu_id;
 
@@ -92,4 +90,17 @@ end if;
 end
 //
 
-##后面写不出来了,老师早点休息,晚安.
+delimiter //
+create trigger delete_stu on stu  after delete
+as
+if exists (select top 1 * from mark s inner join deleted d on s.stu_Id = d.rollno)
+begin
+rollback 
+print ‘你必须先删除该学生的成绩才能删除该学生’
+end
+//
+
+##实在写不出来了,老师早点休息,晚安.
+
+
+
